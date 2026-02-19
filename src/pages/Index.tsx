@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import FloatingHearts from "@/components/birthday/FloatingHearts";
+import MusicPlayer from "@/components/birthday/MusicPlayer";
 import HeroSection from "@/components/birthday/HeroSection";
 import LoveMessage from "@/components/birthday/LoveMessage";
 import OurTimeline from "@/components/birthday/OurTimeline";
@@ -13,14 +14,17 @@ import RomanticFooter from "@/components/birthday/RomanticFooter";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [musicStarted, setMusicStarted] = useState(false);
 
   const handleStart = () => {
+    setMusicStarted(true);
     contentRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <FloatingHearts />
+      <MusicPlayer shouldPlay={musicStarted} />
       <HeroSection onStart={handleStart} />
       <div ref={contentRef}>
         <LoveMessage />
