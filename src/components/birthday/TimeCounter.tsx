@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 const START_DATE = new Date("2020-04-29T00:00:00");
-const END_DATE = new Date("2026-02-23T00:00:00");
 
 const TimeCounter = () => {
   const [elapsed, setElapsed] = useState({ years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const calc = () => {
-      const diff = END_DATE.getTime() - START_DATE.getTime();
+      const now = new Date();
+      const diff = now.getTime() - START_DATE.getTime();
       const totalSeconds = Math.floor(diff / 1000);
       const totalMinutes = Math.floor(totalSeconds / 60);
       const totalHours = Math.floor(totalMinutes / 60);
@@ -31,6 +31,8 @@ const TimeCounter = () => {
     };
 
     calc();
+    const interval = setInterval(calc, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const items = [
